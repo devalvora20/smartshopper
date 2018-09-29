@@ -1,0 +1,67 @@
+
+var connection = require('./Conneciton');
+const uuidv1 = require('uuid/v1');
+
+var con = connection.getConnection();
+
+function CategoryRepository() {
+    let repo = {};
+    repo.getCategories = function(){
+        return new Promise((resolve,reject)=>{
+            var selectCategory= `select category_id,description,no_of_products
+             from category `
+            con.query(selectCategory,(err,rows)=>{
+
+                if(err)   reject(err)
+                else   resolve(JSON.stringify(rows))
+                return;
+                 
+
+
+            })
+        })
+
+    }
+
+    repo.getCategoriesByid= function(categoryId){
+        return new Promise((resolve,reject)=>{
+            var selectCategory= `select category_id,description,no_of_products 
+            from category where category_id = ?`;
+            con.query(selectCategory,[categoryId],(err,rows)=>{
+              //  console.log(rows);
+               if(err) throw err;
+                resolve(JSON.stringify(rows))
+
+            })
+
+        })
+
+    }
+
+    repo.getProductsByCategory = function(category_id){
+        return new Promise((resolve,reject)=>{
+            var selectProducts = 'select * from products where category_id=?'
+            con.query(selectProducts,[category_id],(err,rows)=>{
+                if(err) throw err;
+                resolve(JSON.stringify(rows))
+            })
+
+        })
+    }
+
+    repo.getProducts = function(){
+        return new Promise((resolve,reject)=>{
+            var allProdcts= "select * from products"
+            con.query(allProdcts,(err,rows)=>{
+                if(err) throw err;
+                resolve(JSON.stringify(rows))
+            })
+
+        })
+    }
+
+    return repo;
+}
+
+
+module.exports = CategoryRepository();

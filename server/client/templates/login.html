@@ -1,0 +1,25 @@
+
+<form ng-controller="loginCtrl">
+
+    
+
+    <div class="form-group">
+      <label for="email" >Email address</label>
+      <input type="email" ng-model="user.email"   class="form-control" id="email" placeholder="Email">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password"  value="pass@123"
+       class="form-control" id="password" placeholder="Password">
+    </div>
+    
+ 
+    <button type="submit" ng-click="doLogin()" class="btn btn-default">Login</button>
+    <div ng-if="isSuccess==true">
+            {{responseMessage}}
+      </div>
+      <div ng-if="isSuccess==false">
+            {{responseMessage}}
+      </div>
+  </form>
+ 

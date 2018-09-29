@@ -1,0 +1,34 @@
+<form ng-controller="registerCtrl">
+
+        <div class="form-group">
+                <label for="firstName" >First Name</label>
+                <input  class="form-control" ng-model="user.firstName" type="text" id="firstName">
+        </div>
+        <div class="form-group">
+                <label for="lastName" >Last Name</label>
+                <input  class="form-control" ng-model="user.lastName" 
+                type="text" id="lastName">
+        </div>
+
+        <div class="form-group">
+          <label for="email" >Email address</label>
+          <input type="email" ng-model="user.email" class="form-control" id="email" placeholder="Email">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" ng-model="user.password"
+           class="form-control" id="password" placeholder="Password">
+        </div>
+        
+     
+        <button type="submit" ng-click="doRegisteration()" class="btn btn-default">Submit</button>
+        <br/>
+        <br/>
+        <div ng-if="isSuccess==true" style="color: green">
+                {{responseMessage}}
+          </div>
+          <div ng-if="isSuccess==false" style="color:red">
+                {{responseMessage}}
+          </div>
+      </form>
+     
