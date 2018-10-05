@@ -1,15 +1,16 @@
 
 angular.module('smartShopper')
 .controller('loginCtrl', 
-['$scope', '$http', 'remote_host', 'remote_host_port','$location','$rootScope', loginCtrl])
+['$scope', '$http', 'remote_host', 'remote_host_port','$location','$rootScope','$routeParams', loginCtrl])
 
-function loginCtrl($scope,$http,remote_host,remote_host_port,$location,$rootScope){
+function loginCtrl($scope,$http,remote_host,remote_host_port,$location,$rootScope,$routeParams){
 
      $scope.user ={
          email:"abc@abc.com",
          password:"pass@123"
      }
       $scope.doLogin = function(){
+          console.log("route params"+$routeParams.product)
           console.log($scope.user);
           const url = `http://${remote_host}:${remote_host_port}/api/smartshopper/user/loginCheck`
           if(($scope.user) && ($scope.user.email && $scope.user.email.length>0) && 

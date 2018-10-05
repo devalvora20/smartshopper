@@ -13,7 +13,7 @@ function initializeRoutes($routeProvider) {
         })
         .when("/home", {
             templateUrl: "templates/home.html",
-            controller:"homeCtrl"
+            controller:'homeCtrl'
         })
         .when("/register", {
             templateUrl: "templates/register.html",
@@ -30,5 +30,9 @@ function initializeRoutes($routeProvider) {
         .when("/logout",{
             controller:"logoutCtrl",
             templateUrl: "templates/login.html"
+        })
+        .when("/cart",{
+            controller:"cartCtrl",
+            templateUrl: "templates/cart.html"
         })
 };

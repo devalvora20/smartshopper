@@ -24,7 +24,10 @@ userController.loginCheck(app);
 
 const productController = require('./controllers/ProductsController')
 productController.getProducts(app);
+productController.getProductsByid(app);
 
+const cartController = require('./controllers/CartController')
+cartController.addToCart(app);
 
 app.post('/login', (req, res) => {
   const {email, password} = req.body;

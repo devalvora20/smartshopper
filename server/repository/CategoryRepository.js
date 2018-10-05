@@ -60,6 +60,18 @@ function CategoryRepository() {
         })
     }
 
+    repo.getProductsById = function(id){
+        console.log(id)
+        return new Promise((resolve,reject)=>{
+            var allProdcts= "select * from products where product_id=?"
+            con.query(allProdcts,[id],(err,rows)=>{
+                if(err) throw err;
+                resolve(JSON.stringify(rows))
+            })
+
+        })
+
+    }
     return repo;
 }
 

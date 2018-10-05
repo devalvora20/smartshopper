@@ -64,20 +64,21 @@ function OrderRepository() {
     }
 
 
-    repo.addToCart = function (quantity, product, userId, date) {
+    repo.addToCart = function (quantity, product, userId) {
         return new Promise((resolve, reject) => {
 
             var insertQuery = `
-insert into cart(cart_id,name,price,qty,totalPrice,product_id,user_id) 
-values(?,?,?,?,?,?,?);`
+            insert into cart(cart_id,name,price,qty,totalPrice,product_id,user_id,
+               date_created,order_placed)  
+       values(?,?,?,?,?,?,?,?,?);`
 
             var cart_id = uuidv1();
             var name = product.name;
             var price = product.price;
             var totalPrice = quantity * price;
-
+            var today = new Date(new Date().toUTCString());
             con.query(insertQuery, [cart_id, name, price, quantity, totalPrice,
-                 product.id, userId], (err,rows) => {
+                 product.id, userId,today,'N'], (err,rows) => {
                      if(err){
                          throw err;
                      }
