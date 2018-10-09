@@ -25,3 +25,11 @@ INSERT INTO `products` (`product_id`, `name`, `image`, `description`, `price`, `
 
 
 select * from products;
+
+select product_id,name,image,products.description,price,
+category.description as category_name 
+from products join category
+on products.category_id = category.category_id
+order by category_name
+
+
