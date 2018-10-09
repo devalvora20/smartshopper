@@ -26,7 +26,7 @@ function homeCtrl(remote_host,remote_host_port,$http,
         
         
         if(!$rootScope.user){
-             $location.path('/login').search({product:product.product_id})
+             $location.path('/login').search({product_id:product.product_id})
              return;
         }
 

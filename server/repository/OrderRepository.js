@@ -8,10 +8,11 @@ var con = connection.getConnection();
 function OrderRepository() {
     let repo = {};
 
-    repo.placeOrder = function (userId, date, lineItems) {
+    repo.placeOrder = function (userId,lineItems) {
 
         console.log(lineItems)
 
+        var today = new Date(new Date().toUTCString());
         return new Promise((resolve, reject) => {
 
             con.beginTransaction(function (err) {
@@ -20,7 +21,7 @@ function OrderRepository() {
             insert into orders(order_id,user_id,no_of_items,order_date) 
             values(?,?,?,?)`
                 const orderId = uuidv1();
-                con.query(insertToOrder, [orderId, userId, lineItems.length, date], function (err, rows) {
+                con.query(insertToOrder, [orderId, userId, lineItems.length, today], function (err, rows) {
                     if (err) {
                         con.rollback(() => { throw err });
                     }
@@ -34,7 +35,7 @@ function OrderRepository() {
                         var itemId = uuidv1();
                         var itemQty = lineItems[i].quantity;
 
-                        var productId = lineItems[i].productId;
+                        var productId = lineItems[i].product_id;
                         con.query(inserToLineItems, [itemId, productId, orderId, itemQty], function (err, rows) {
                             if (err) {
                                 con.rollback(() => { throw err });
@@ -46,7 +47,7 @@ function OrderRepository() {
                                     throw err;
                                 }
 
-                                resolve('Order Placed')
+                                resolve(orderId)
                             });
 
                         })

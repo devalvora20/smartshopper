@@ -18,10 +18,10 @@ img{max-width:100%;}
     font-size: 14px;
     font-weight: 500;
     line-height: 21px;
+    margin-bottom: 5px;
     margin: 0px;
     padding: 0px;
     border-bottom: 1px solid #ccc4c4;
-    margin-bottom: 5px;
     padding-bottom: 5px;
     }
 	.my-list span{float:left;font-weight: bold;}
@@ -46,6 +46,7 @@ img{max-width:100%;}
 	
 .my-list:hover .detail{top:0;}
 
+
 </style>
 <article>
     <!--
@@ -55,28 +56,35 @@ img{max-width:100%;}
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
-
                     <div class="row" >
-                        <div ng-repeat="p in products"
-                         class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div ng-repeat="p in products | filter:searchBoxInput"
+                         class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
 
-                        <div class="my-list">
-                            <img ng-src="pics/{{p.image}}" />
+                        <div class="my-list" class="box">
+                            <img ng-src="pics/{{p.image}}" style="width:100%"/>
                             <h3>{{p.name}}</h3>
                             <span>RS:{{p.price}}</span>
-                            <span class="pull-right">Category</span>
+                            <span class="pull-right">{{p.category_name}}</span>
                             <div class="offer">Extra 5% Off. Cart value Rs 500</div>
                              <!-- <a ng-click="addToCart(p)" 
                             class="btn btn-info btn-lg" 
                             class="btn btn-info">Add To Cart</a>  -->
                             <div class="detail">
                             <p>{{p.description}} </p>
-                            <img ng-src="pics/{{p.image}}" />
+                            <img ng-src="pics/{{p.image}}" style="width:100%"/>
                             
                             <a ng-click="addToCart(p)" data-toggle="modal" data-target="{{modalId}}"  class="btn btn-info">Add to cart</a>
                             </div>
                         </div>
-                        </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <br/></div>
                         </div>
                     
 </article>

@@ -51,7 +51,13 @@ function CategoryRepository() {
 
     repo.getProducts = function(){
         return new Promise((resolve,reject)=>{
-            var allProdcts= "select * from products"
+          //  var allProdcts= "select * from products"
+          var allProdcts=`select product_id,name,image,products.description,price,
+          category.description as category_name 
+          from products join category
+          on products.category_id = category.category_id
+          order by category_name`
+          
             con.query(allProdcts,(err,rows)=>{
                 if(err) throw err;
                 resolve(JSON.stringify(rows))
