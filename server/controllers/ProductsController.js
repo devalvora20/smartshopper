@@ -2,31 +2,9 @@
    how to use swagger in nodejs
    1. https://github.com/Surnet/swagger-jsdoc/blob/master/docs/GETTING-STARTED.md
    2. https://mherman.org/blog/swagger-and-nodejs/
+
+   3. this works: https://github.com/Surnet/swagger-jsdoc/blob/master/docs/GETTING-STARTED.md
 */
-
-/**
- * @swagger
- *
- * definitions:
- *   Product:
- *     type: object
- *     properties:
- *       product_id:
- *         type: string
- *       name:
- *         type: string
- *         format: password
- *   User:
- *     allOf:
- *       - $ref: '#/definitions/NewUser'
- *       - required:
- *         - id
- *       - properties:
- *         id:
- *           type: integer
- *           format: int64
- */
-
 
 const BASE_URL = `/api/smartshopper`
 const productRepo = require('../repository/CategoryRepository')
