@@ -48,12 +48,15 @@ userController.loginCheck(app);
 const productController = require('./controllers/ProductsController')
 productController.getProducts(app);
 productController.getProductsByid(app);
+productController.getCategory(app);
+productController.getCategoryById(app);
 
 const cartController = require('./controllers/CartController')
 cartController.addToCart(app);
 
 const orderController = require('./controllers/OrderController')
 orderController.placeOrder(app);
+orderController.getOrdersForUser(app);
 
 //const test = require('./controllers/TestController');
 //test.setup(app);

@@ -8,35 +8,41 @@ var con = connection.getConnection();
 function OrderRepository() {
     let repo = {};
 
-    repo.placeOrder = function (userId,lineItems) {
+    repo.placeOrder = function (userId,lineItems,orderCost) {
 
-        console.log(lineItems)
+      //  console.log(lineItems)
 
         var today = new Date(new Date().toUTCString());
+        let orderStatus ='not_placed'
         return new Promise((resolve, reject) => {
 
+            
             con.beginTransaction(function (err) {
                 if (err) throw err;
                 var insertToOrder = `
-            insert into orders(order_id,user_id,no_of_items,order_date) 
-            values(?,?,?,?)`
+            insert into orders(order_id,user_id,no_of_items,
+                order_date,order_status,total_cost) 
+            values(?,?,?,?,?,?)`
                 const orderId = uuidv1();
-                con.query(insertToOrder, [orderId, userId, lineItems.length, today], function (err, rows) {
+                con.query(insertToOrder,
+                     [orderId, userId, lineItems.length, today,orderStatus,orderCost], function (err, rows) {
                     if (err) {
                         con.rollback(() => { throw err });
                     }
 
 
                     var inserToLineItems = `insert into lineitems(lineItem_id,
-                    product_id,order_id,quantity)
-                values(?,?,?,?)`
+                    product_id,order_id,quantity,itemCost)
+                values(?,?,?,?,?)`
                     console.log(lineItems)
                     for (var i = 0; i < lineItems.length; i++) {
                         var itemId = uuidv1();
                         var itemQty = lineItems[i].quantity;
+                         var itemCost = lineItems[i].itemCost;
 
                         var productId = lineItems[i].product_id;
-                        con.query(inserToLineItems, [itemId, productId, orderId, itemQty], function (err, rows) {
+                        con.query(inserToLineItems, [itemId, productId, 
+                            orderId, itemQty,itemCost], function (err, rows) {
                             if (err) {
                                 con.rollback(() => { throw err });
 
@@ -64,6 +70,26 @@ function OrderRepository() {
 
     }
 
+    repo.getOrders = function(userid){
+        return new Promise((resolve,reject)=>{
+            var selectQuery = `
+            select order_id,user_id,no_of_items,order_date,order_status,total_cost
+ from orders where user_id= ?`
+
+           con.query(selectQuery,[userid],(err,rows)=>{
+                if(err){
+                    reject(err);
+                }
+               else
+               resolve(JSON.stringify(rows))
+
+           })
+
+
+
+        })
+
+    }
 
     repo.addToCart = function (quantity, product, userId) {
         return new Promise((resolve, reject) => {

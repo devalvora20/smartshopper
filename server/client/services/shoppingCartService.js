@@ -42,14 +42,26 @@ function shoppingCartSvc($rootScope,$http,remote_host,remote_host_port) {
 
     return new Promise((resolve, reject) => {
       let lineItemDto = [];
+      let orderCost=0;
       cartItems.map(item => {
+        let LineitemCost= item.price*item.quantity;
+        orderCost+=LineitemCost;
+        console.log(LineitemCost)
         lineItemDto.push({
           product_id: item.product_id,
-          quantity: item.quantity
+          quantity: item.quantity,
+          itemCost:LineitemCost
         })
       })
+      
+      let orderDTO ={
+        cost:orderCost,
+        lineItems:lineItemDto
+      }
+      console.log(orderDTO);
+
       const url = `http://${remote_host}:${remote_host_port}/api/smartshopper/user/${userId}/placeOrder`
-      $http.post(url,lineItemDto)
+      $http.post(url,JSON.stringify(orderDTO))
            .then((resp)=>{
               console.log(resp.data)
               resolve(resp.data)

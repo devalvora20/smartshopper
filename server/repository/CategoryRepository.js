@@ -38,7 +38,7 @@ function CategoryRepository() {
 
     }
 
-    repo.getProductsByCategory = function(category_id){
+    repo.getProductsByCategoryId = function(category_id){
         return new Promise((resolve,reject)=>{
             var selectProducts = 'select * from products where category_id=?'
             con.query(selectProducts,[category_id],(err,rows)=>{
